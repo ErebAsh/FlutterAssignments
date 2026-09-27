@@ -14,6 +14,9 @@ import 'week3/public_api_news/screens/public_news_screen.dart';
 import 'week3/firebase_auth/screens/firebase_login_screen.dart';
 import 'week3/weather_app/screens/weather_forecast_screen.dart';
 
+// Week 4 Capstone Screen
+import 'week4/ecommerce_app_shell.dart';
+
 void main() {
   runApp(const FlutterAssignmentsApp());
 }
@@ -37,7 +40,7 @@ class _FlutterAssignmentsAppState extends State<FlutterAssignmentsApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Himanshu Raj - Flutter Assignments Hub',
+      title: 'Himanshu Raj - Flutter Coursework & Capstone Hub',
       debugShowCheckedModeBanner: false,
       themeMode: _themeMode,
       theme: ThemeData(
@@ -87,7 +90,7 @@ class MainShellScreen extends StatefulWidget {
 }
 
 class _MainShellScreenState extends State<MainShellScreen> {
-  int _selectedWeek = 3; // Default to Week 3 for immediate review
+  int _selectedWeek = 4; // Default to Week 4 Capstone
   int _selectedWeek1Index = 0;
   int _selectedWeek2Index = 0;
   int _selectedWeek3Index = 0;
@@ -141,7 +144,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
       builder: (context) {
         final theme = Theme.of(context);
         return DraggableScrollableSheet(
-          initialChildSize: 0.8,
+          initialChildSize: 0.85,
           minChildSize: 0.5,
           maxChildSize: 0.95,
           expand: false,
@@ -163,7 +166,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Flutter Coursework Portfolio',
+                    'Flutter Coursework & Capstone Portfolio',
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -177,10 +180,23 @@ class _MainShellScreenState extends State<MainShellScreen> {
                   ),
                   const SizedBox(height: 20),
 
+                  // Week 4 Capstone
+                  const Text('Week 4 - Capstone Project:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                  const SizedBox(height: 8),
+                  _buildOverviewTile(
+                    week: 4,
+                    index: 0,
+                    number: '🏆',
+                    title: 'Pulse E-Commerce App',
+                    description: 'Full store: Login, Catalog, Cart with Badges, Mock Checkout & Order Tracking.',
+                  ),
+
+                  const SizedBox(height: 18),
+
                   // Week 3 Tasks
                   const Text('Week 3 Solutions:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                   const SizedBox(height: 8),
-                  _buildOverviewTile(week: 3, index: 0, number: '1', title: 'Public API Data Fetching', description: 'Live news feed via Hacker News public REST API.'),
+                  _buildOverviewTile(week: 3, index: 0, number: '1', title: 'Public API News Feed', description: 'Live news feed via Hacker News public REST API.'),
                   const SizedBox(height: 8),
                   _buildOverviewTile(week: 3, index: 1, number: '2', title: 'Firebase Login Page', description: 'Email/Password auth, validation, password reset & profile.'),
                   const SizedBox(height: 8),
@@ -231,7 +247,9 @@ class _MainShellScreenState extends State<MainShellScreen> {
             ? _selectedWeek1Index == index
             : _selectedWeek == 2
                 ? _selectedWeek2Index == index
-                : _selectedWeek3Index == index);
+                : _selectedWeek == 3
+                    ? _selectedWeek3Index == index
+                    : true);
 
     return ListTile(
       onTap: () {
@@ -241,7 +259,7 @@ class _MainShellScreenState extends State<MainShellScreen> {
             _selectedWeek1Index = index;
           } else if (week == 2) {
             _selectedWeek2Index = index;
-          } else {
+          } else if (week == 3) {
             _selectedWeek3Index = index;
           }
         });
@@ -268,6 +286,53 @@ class _MainShellScreenState extends State<MainShellScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_selectedWeek == 4) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Week 4: Capstone E-Commerce App',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'Production-Ready Mobile Application',
+                style: TextStyle(fontSize: 11, color: Colors.blue),
+              ),
+            ],
+          ),
+          actions: [
+            SegmentedButton<int>(
+              segments: const [
+                ButtonSegment(value: 1, label: Text('W1')),
+                ButtonSegment(value: 2, label: Text('W2')),
+                ButtonSegment(value: 3, label: Text('W3')),
+                ButtonSegment(value: 4, label: Text('W4')),
+              ],
+              selected: const {4},
+              onSelectionChanged: (set) {
+                setState(() => _selectedWeek = set.first);
+              },
+            ),
+            const SizedBox(width: 8),
+            IconButton(
+              tooltip: widget.isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+              onPressed: widget.onToggleTheme,
+              icon: Icon(widget.isDarkMode ? Icons.light_mode_rounded : Icons.dark_mode_rounded),
+            ),
+            IconButton(
+              tooltip: 'View Syllabus / Overview',
+              onPressed: _showAssignmentsOverview,
+              icon: const Icon(Icons.info_outline_rounded),
+            ),
+            const SizedBox(width: 8),
+          ],
+        ),
+        body: const EcommerceAppShell(),
+      );
+    }
+
     final currentTitle = _selectedWeek == 1
         ? _week1Titles[_selectedWeek1Index]
         : _selectedWeek == 2
@@ -303,12 +368,13 @@ class _MainShellScreenState extends State<MainShellScreen> {
         ),
         centerTitle: false,
         actions: [
-          // Week Switcher Segmented Control (Week 1, Week 2, Week 3)
+          // Week Switcher Segmented Control (W1, W2, W3, W4)
           SegmentedButton<int>(
             segments: const [
               ButtonSegment(value: 1, label: Text('W1')),
               ButtonSegment(value: 2, label: Text('W2')),
               ButtonSegment(value: 3, label: Text('W3')),
+              ButtonSegment(value: 4, label: Text('W4')),
             ],
             selected: {_selectedWeek},
             onSelectionChanged: (set) {
