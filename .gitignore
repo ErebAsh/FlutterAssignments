@@ -1,0 +1,87 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+*.bak
+*.tmp
+*.temp
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# Visual Studio Code
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Android Studio / Android related
+/android/.gradle/
+/android/local.properties
+/android/captures/
+/android/gradle/wrapper/gradle-wrapper.jar
+/android/app/debug/
+/android/app/profile/
+/android/app/release/
+/android/app/build/
+
+# iOS / macOS related
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Podfile.lock
+**/macos/Flutter/ephemeral/
+**/macos/Pods/
+
+# Windows / Linux desktop
+**/windows/flutter/ephemeral/
+**/linux/flutter/ephemeral/
+
+# Symbolication & Obfuscation
+app.*.symbols
+app.*.map.json
+
+# Environment variables, keystores, and secret credentials
+.env
+.env.*
+*.env
+*.keystore
+*.jks
+key.properties
+google-services.json
+GoogleService-Info.plist
+
+# OS generated files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
